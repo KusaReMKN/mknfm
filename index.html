@@ -23,25 +23,86 @@
 		<h1>MKNFM</h1>
 		<p>Virtual FM Synthesizer</p>
 	</header>
-	<fieldset>
-		<label>
-			Freq:
-			<input type="number" id="FREQ" value="440">
-		</label>
-		<br>
-		<label>
-			Sound:
-			<input type="text" id="SND" value="2, 2,0, 1,0,0,1,0, 1,0, 1000,0,0,1000,0, 100,0,0,100,0">
-		</label>
-		<hr>
-		<input type="button" value="PLAY" id="TRIG" style="height: 5rem">
-	</fieldset>
-	<div id="stats" style="white-space: pre;"></div>
-	<h2>音素材</h2>
-	<h3>打撃音(?)</h3>
-	<code>4, 0,0, 0,0,0,0,0, 1,1, 1,0,250,0,0, 3000,0,250,100,0</code>
-	<h3>ベル</h3>
-	<code>1, 1,0, .99,0,500,.5,-.0001, 3.5,0, 1000,0,250,500,-.095, 10,0,500,.1,0</code>
+	<article>
+		<section>
+			<h2>とりあえず実演</h2>
+			<fieldset>
+				<label>
+					Freq:
+					<input type="number" id="FREQ" value="880">
+				</label>
+				<br>
+				<label>
+					Sound:
+					<input type="text" id="SND" value="1, 1,0, .99,0,500,.5,-.0001, 3.2,0, 1000,0,250,500,-.095, 10,0,500,.1,0">
+				</label>
+				<hr>
+				<input type="button" value="PLAY" id="TRIG" style="height: 5rem">
+			</fieldset>
+			<div id="stats" style="white-space: pre;"></div>
+			<h2>音素材</h2>
+			<h3>打撃音(?)</h3>
+			<code>4, 0,0, 0,0,0,0,0, 1,1, 1,0,250,0,0, 3000,0,250,100,0</code>
+			<h3>ベル</h3>
+			<code>1, 1,0, .99,0,500,.5,-.0001, 3.5,0, 1000,0,250,500,-.095, 10,0,500,.1,0</code>
+		</section>
+		<section>
+			<h2>アルゴリズム</h2>
+			<p>以下の通り</p>
+			<img alt="アルゴリズム一覧"
+				src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbkAAAEFCAMAAABJgmkUAAAABlBMVEUAAAD///+l2Z/dAAAE7klEQVR42u3d3ZbTMBAD4E7I+7+yuYDlLIdl8+PJ1E4+XQAXtKqtSFHcpH69YE7EKyrpGrYstsXBy3PAc7ADlKPcPo9j4zmeA90SdEuQlpTT9nRLoJxuCbolSEvQLXVLGAtr+rEVpUfy1P2qa2wnlPv+HVv2RNeyddX0yrFJSw0FdEtsPMdzQLnAxnM8B5TTLXkOKEc5bU+3BMpRTtvTLYFysIX1RAK083UqRmd7zTK2Dc9tRXdutGN7Z1q26hP1bbE1k2tHBnzxzi1afPeLLlu/9hKpHpiZbWsmkz3X4vV6BddVzOSSTke6mplc8um+I7RumTWTmcp9SmWuu34mlyvoSFcwk8sldP8ltG6ZNZNpyv1TYLnu4pnMUi7eXA/ug70z6TvxSdkOPIXVSj8dtjTlfsVv1W8VY9vEUpsFDVuWt9djn60yy7FlKWcmh2I70FAyxhbYsk6o+xtKaQHDlqecK7HB2NxvOSmbu/amBeUo5/zFc0A5yml7uiVQ7ulYazMgsPGctOw5jKL0oI0vDuNWyFY7ts60/OoNe76k+P61R9n6nhwae2y3TstnPzm0TC7cc6Wbd93y4U8Ozeu5xz85tMwv3EOlm3Td0pNDk3rOk0Pndnd5/yxd9+RQ7XYxrVi5yJzywdpe6S5AXb+RZN1SQwHdEhvP8Rw8Xjn3W/Icz5kCyumWPAeUo5y2p1sC5Sin7emWQDnYhH153snWU0ztyzMrm7Q8Mvsj3WGWvC/P5uBvvFNO7dh47thhMNB9nZQ75t9xpLNueTB4R3lyiOcOnzFHcR3lDledQaSzbnm8ow7x5BDPnbm4GMJ1lDtTdOJ5yvlO/C3K+XJtJLbFVE7KttSmQcOWlasayqygHOV0y2GVq/1iEdsGVkfwpGzWLSdl01A0FNAtsfEczwHldEue4zlTMCnsyzMpG8/dNC1n37vmzmxT78vzZDZpqVvCvZWzbslzPGcKKLerf2HjuadjHf4TsukQykXJS57AJi01FNAtsfEczwHlrFvyHM+ZAsrpljwHlKOctqdbAuUop+3plkA52FGIIsX3PXd1YzvB1pakwG6Vg8MmLSfGmhIQu4+tr59ewXbCpTynW8KtlbNuyXM8Zwood+2lETae4znQLbGdwJ6d4ONPhsfvf0S75MNiy1PuFa9fyzq/3/ljhSc6f4YFWzfbnrRM3CivYStKy78+VnxQX57o2PKUi89/t6uHhy0nLRMHE9iq0rJ9nFs/53RcnCTY+pWL//x9zRCxjXslbt1y1jUUoBzlaumsW/Icz5kCyumWPAeUuzHWWucHNp6TljkXJpF8qGLb/n+lF5ANWxabtNQtoRZRvdwG0lJaAuV2eBwbz/Ec6JagW4K0pJy2p1sC5XRL0C1BWsJ2Wn78YsAN/2zRbjw6dzNMyiYtdUvQLUG3pFyex7HxHM+Bbgm6JUhLyml7uiVQTrcE3RKkJeiWuiVIS9Atn9wt13MvK5S7Zv+Hv89VUTi6s1xrx/hqhhaVh0oUH5ft/H4vy+nxFfWv6HdQUaC0OqppGkqrTedW57iOF68T6FZboqIwLlvH8IqVi9IDM0pdEKdecZrxx6nJLGxftW0vSpts18hcz816PWfdclI2q1/TgnKzwnnOeQ6kJQyonG7JczxnCnRL0C1BWlJO29MtgXK6pUnQLUFagm6pWwJACn4CsDgNXci4DmkAAAAASUVORK5CYII=">
+		</section>
+		<section>
+			<h2>Sound の書式</h2>
+			それぞれカンマ区切り
+			<ul>
+				<li>アルゴリズムの番号(1, 2, 3, 4)</li>
+				<br>
+				<li>周波数倍率(#1)(-∞~∞)</li>
+				<li>波形(#1)(0: sine, 1: square, 2: sawtooth, 3: triangle)</li>
+				<br>
+				<li>アタック音量(#1)(0~∞)</li>
+				<li>アタック時間(#1)(0~∞)(単位: ms)</li>
+				<li>ディケイ時間(#1)(0~∞)(単位: ms)</li>
+				<li>サスティン音量(#1)(0~∞)</li>
+				<li>サスティン増幅量(#1)(-∞~∞)(単位: /ms)</li>
+				<br>
+				<li>周波数(#2)</li>
+				<li>波形(#2)</li>
+				<br>
+				<li>アタック音量(#2)</li>
+				<li>アタック時間(#2)</li>
+				<li>ディケイ時間(#2)</li>
+				<li>サスティン音量(#2)</li>
+				<li>サスティン増幅量(#2)</li>
+				<br>
+				<li>アタック音量(フィードバック)</li>
+				<li>アタック時間(フィードバック)</li>
+				<li>ディケイ時間(フィードバック)</li>
+				<li>サスティン音量(フィードバック)</li>
+				<li>サスティン増幅量(フィードバック)</li>
+			</ul>
+		</section>
+		<section>
+			<h2>エンベロープ</h2>
+
+			<p>
+				ADS のエンベロープを生成します。
+				ノートオフ直後に音量は 0 になります。
+			</p>
+
+			<img alt="エンベロープ"
+				src="data:image/png;base64,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">
+
+			<ol>
+				<li>アタック音量。</li>
+				<li>アタック時間。アタック音量になるまでの時間。</li>
+				<li>ディケイ時間。サスティン音量になるまでの時間。</li>
+				<li>サスティン音量。</li>
+				<li>サスティン増幅量。サスティン音量になってから 1ms ごとにどの程度増幅するか。</li>
+			</ol>
+		</section>
+	</article>
 </body>
 
 </html>
